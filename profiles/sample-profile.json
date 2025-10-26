@@ -1,0 +1,21 @@
+{
+  "name": "Jane Doe - Sample Business",
+  "business": "All Categories / Demo",
+  "description": "Trusted demo business. Use this as a template for new profiles.",
+  "phone": "+2348012345678",
+  "whatsapp": "+2348012345678",
+  "whatsapp_raw": "2348012345678",
+  "email": "jane@example.com",
+  "address": "Example City, Nigeria",
+  "links": [
+    {
+      "label": "Instagram",
+      "url": "https://instagram.com/example"
+    },
+    {
+      "label": "Facebook",
+      "url": "https://facebook.com/example"
+    }
+  ],
+  "photo": "assets/sample-photo.jpg"
+}

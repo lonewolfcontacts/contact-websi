@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Profile - Lone Wolf Contacts</title>
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="bw">
+  <header class="top">
+    <div class="brand"><div class="logo">🖤</div><h1><a href="../index.html" style="color:inherit;text-decoration:none">Lone Wolf Contacts</a></h1></div>
+    <nav class="nav"><a href="../index.html">Home</a><a href="../create.html" class="cta">Create</a></nav>
+  </header>
+
+  <main class="container">
+    <section id="profile" class="contact-card">
+      <div id="photo-wrap" style="display:flex;gap:1rem;align-items:center">
+        <div id="avatar" style="width:90px;height:90px;border-radius:12px;border:1px solid #000;display:flex;align-items:center;justify-content:center;font-weight:700">IMG</div>
+        <div>
+          <h2 id="name">Name</h2>
+          <p id="business">Business / Role</p>
+          <p id="desc" style="max-width:680px"></p>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;border-top:1px dashed #000;padding-top:1rem">
+        <h3>Contact</h3>
+        <p><strong>Phone:</strong> <a id="phone" href="#">-</a></p>
+        <p><strong>WhatsApp:</strong> <a id="wa" href="#">-</a></p>
+        <p><strong>Email:</strong> <a id="email" href="#">-</a></p>
+        <p><strong>Address:</strong> <span id="address">-</span></p>
+      </div>
+
+      <div style="margin-top:1rem;border-top:1px dashed #000;padding-top:1rem">
+        <h3>Social / Links</h3>
+        <div id="links"></div>
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:center;margin-top:1rem">
+        <div id="qrcode"></div>
+        <div><button id="copyLink">Copy Profile Link</button></div>
+      </div>
+    </section>
+  </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+// This profile page is designed to be duplicated per user and can either embed JSON or be prefilled.
+// For demo, it will try to load a JSON file with same basename (e.g., sample-profile.json).
+(function(){
+  // Determine base filename (e.g., sample-profile.html -> sample-profile.json)
+  const pathParts = window.location.pathname.split('/');
+  const filename = pathParts[pathParts.length-1] || 'sample-profile.html';
+  const base = filename.replace('.html', '');
+  const jsonPath = base + '.json';
+
+  fetch(jsonPath).then(r => {
+    if(!r.ok) throw new Error('no data');
+    return r.json();
+  }).then(data => {
+    document.getElementById('name').textContent = data.name || '';
+    document.getElementById('business').textContent = data.business || '';
+    document.getElementById('desc').textContent = data.description || '';
+    const phoneEl = document.getElementById('phone'); phoneEl.textContent = data.phone || '-'; phoneEl.href = 'tel:' + (data.phone || '');
+    const waEl = document.getElementById('wa'); waEl.textContent = data.whatsapp || '-'; waEl.href = 'https://wa.me/' + (data.whatsapp_raw || '');
+    const emailEl = document.getElementById('email'); emailEl.textContent = data.email || '-'; emailEl.href = 'mailto:' + (data.email || '');
+    document.getElementById('address').textContent = data.address || '-';
+    // Links
+    const linksWrap = document.getElementById('links');
+    (data.links||[]).forEach(l => {
+      const a = document.createElement('a');
+      a.href = l.url; a.textContent = l.label; a.target = '_blank'; a.style.display = 'inline-block'; a.style.marginRight = '0.6rem';
+      linksWrap.appendChild(a);
+    });
+
+    // Avatar (if image provided, show it)
+    if(data.photo){
+      const av = document.getElementById('avatar');
+      av.textContent = '';
+      const img = document.createElement('img'); img.src = '../' + data.photo; img.alt = data.name; img.style.width='90px'; img.style.height='90px'; img.style.objectFit='cover'; img.style.borderRadius='8px';
+      av.appendChild(img);
+    }
+
+    // QR Code generate: link to this page
+    const fullUrl = window.location.href;
+    new QRCode(document.getElementById('qrcode'), { text: fullUrl, width: 120, height: 120 });
+    // copy link button
+    document.getElementById('copyLink').addEventListener('click', ()=>{
+      navigator.clipboard.writeText(fullUrl).then(()=>{
+        alert('Profile link copied to clipboard');
+      });
+    });
+  }).catch(()=>{
+    // fallback demo content
+    document.getElementById('name').textContent = 'John Doe (Sample)';
+    document.getElementById('business').textContent = 'Sample Services';
+    document.getElementById('desc').textContent = 'This is a demo profile. Fill in your own JSON file next to this page.';
+    new QRCode(document.getElementById('qrcode'), { text: window.location.href, width: 120, height: 120 });
+  });
+})();
+</script>
+</body>
+</html>
