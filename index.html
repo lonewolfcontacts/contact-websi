@@ -1,52 +1,119 @@
-
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lone Wolf Contacts</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Lone Wolf Contacts - reach out" />
+  <style>
+    :root{
+      --bg:#060606;
+      --card:#0f0f0f;
+      --muted:#9aa0a6;
+      --accent:#e6e6e6;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--accent);background:linear-gradient(180deg,var(--bg),#000);}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+    .card{width:100%;max-width:820px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);border-radius:14px;padding:36px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    .top{display:flex;gap:20px;align-items:center}
+    .logo{width:96px;height:96px;flex:0 0 96px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--glass)}
+    .logo img{width:84px;height:84px;object-fit:contain;display:block}
+    .title{flex:1}
+    h1{margin:0;font-size:22px;letter-spacing:1px}
+    p.lead{margin:6px 0 0;color:var(--muted)}.desc{margin-top:18px;color:var(--muted)}
+
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);text-decoration:none;font-weight:600;min-width:220px}
+.btn .ico{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;opacity:0.95}
+.btn:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+
+.meta{display:flex;gap:12px;margin-top:18px;color:var(--muted);align-items:center;flex-wrap:wrap}
+.meta .item{display:flex;align-items:center;gap:8px}
+
+footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+@media (max-width:560px){
+  .logo{width:80px;height:80px}
+  .btn{min-width:100%;justify-content:center}
+}
+
+  </style>
 </head>
-<body class="bw">
-  <header class="top">
-    <div class="brand">
-      <div class="logo">🖤</div>
-      <h1>Lone Wolf Contacts</h1>
-    </div>
-    <nav class="nav">
-      <a href="#how">How it works</a>
-      <a href="create.html" class="cta">Create Your Contact Page</a>
-    </nav>
-  </header>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <div class="top">
+        <div class="logo" aria-hidden="true">
+          <!-- Put a file named logo.png in the repository root for this to show. -->
+          <img src="logo.png" alt="Lone Wolf logo">
+        </div>
+        <div class="title">
+          <h1>Lone Wolf Contacts</h1>
+          <p class="lead">Professional contacts & quick links — Enugu, Nigeria</p>
+        </div>
+      </div><p class="desc">Welcome — use the buttons below to contact or follow. Each button opens the corresponding app or page.</p>
 
-  <main class="container">
-    <section class="hero">
-      <h2>Create your shareable contact page</h2>
-      <p>Quickly build a digital business card with phone, WhatsApp, email, social links, address and a QR code ready for advertising.</p>
-      <a class="big-cta" href="create.html">Create Your Contact Page</a>
-    </section>
+  <!-- Contact buttons (optional) -->
+  <div class="links">
+    <!-- Phone -->
+    <a class="btn" href="tel:+23480127465921" aria-label="Call phone">
+      <span class="ico">📞</span>
+      <span>Call +234 801 274 65921</span>
+    </a>
 
-    <section id="preview" class="preview">
-      <h3>Profile preview</h3>
-      <div class="preview-grid">
-        <iframe src="profiles/sample-profile.html" title="sample profile" class="preview-frame"></iframe>
-      </div>
-      <p class="note">Each user receives a unique link and QR code like <code>/profiles/your-name.html</code></p>
-    </section>
+    <!-- Email -->
+    <a class="btn" href="mailto:anekesinclair@gmail.com" aria-label="Send email">
+      <span class="ico">✉</span>
+      <span>anekesinclair@gmail.com</span>
+    </a>
 
-    <section id="how" class="how">
-      <h3>How it works</h3>
-      <ol>
-        <li>Click “Create Your Contact Page”</li>
-        <li>Fill in your details (name, phone, WhatsApp, email, socials, address, description)</li>
-        <li>Copy your unique link and QR code for printing or sharing</li>
-      </ol>
-      <p class="small">Note: This starter is static (GitHub Pages). For user signups and persistent listings, connect to a backend (Firebase, Supabase, or a simple server).</p>
-    </section>
-  </main>
+    <!-- WhatsApp -->
+    <a class="btn" href="https://wa.me/23409039228575" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <span class="ico">🟢</span>
+      <span>Message on WhatsApp</span>
+    </a>
 
-  <footer class="foot">
-    <p>© 2025 Lone Wolf Contacts — Built by Aneke Sinclair Sochukwuma</p>
+    <!-- Instagram -->
+    <a class="btn" href="https://instagram.com/lonewolf" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <span class="ico">📸</span>
+      <span>@lonewolf</span>
+    </a>
+
+    <!-- X / Twitter -->
+    <a class="btn" href="https://x.com/sszhahz" target="_blank" rel="noopener noreferrer" aria-label="X">
+      <span class="ico">🐦</span>
+      <span>@sszhahz</span>
+    </a>
+
+    <!-- LinkedIn (hidden by default, remove comment and add URL to show) -->
+    <!-- <a class="btn" href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer"><span class="ico">👤</span><span>LinkedIn</span></a> -->
+
+    <!-- Additional website link (optional) -->
+    <!-- <a class="btn" href="https://your-website.example" target="_blank" rel="noopener noreferrer"><span class="ico">🌐</span><span>Your website</span></a> -->
+  </div>
+
+  <div class="meta">
+    <div class="item">📍 Enugu, Nigeria</div>
+    <div class="item">•</div>
+    <div class="item">Built with care — Lone Wolf Contacts</div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Lone Wolf Contacts — <a href="mailto:anekesinclair@gmail.com" style="color:inherit;opacity:0.8">anekesinclair@gmail.com</a>
   </footer>
-</body>
+</div>
+
+  </div>  <script>
+    // small niceties
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Accessibility: add focus-visible styles
+    (function(){
+      const css = '.btn:focus{outline:2px solid rgba(255,255,255,0.08);transform:none}';
+      const s = document.createElement('style'); s.appendChild(document.createTextNode(css)); document.head.appendChild(s);
+    })();
+  </script></body>
 </html>
