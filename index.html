@@ -1,158 +1,473 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lone Wolf — Contact</title>
-  <meta name="description" content="Lone Wolf Contacts — Enugu, Nigeria" />
-  <style>
-    :root{
-      --bg:#040405;
-      --card:#0d0d0f;
-      --muted:#97a0a6;
-      --accent:#ffffff;
-      --glass: rgba(255,255,255,0.03);
-      --accent-2: rgba(255,255,255,0.06);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--accent);background:
-      radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.02), transparent),
-      linear-gradient(180deg,var(--bg),#000);-webkit-font-smoothing:antialiased}
-    .container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
-    .card{
-      width:100%;
-      max-width:980px;
-      display:grid;
-      grid-template-columns: 1fr 320px;
-      gap:28px;
-      align-items:center;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:16px;
-      padding:34px;
-      border:1px solid var(--accent-2);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    }
-    .left{padding-right:6px}
-    .logo-wrap{display:flex;align-items:center;gap:18px}
-    .logo{
-      width:132px;height:132px;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--glass);flex:0 0 132px;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .logo img{width:110px;height:110px;object-fit:contain;display:block}
-    h1{margin:0;font-size:28px;letter-spacing:1px}
-    .subtitle{margin:6px 0 0;color:var(--muted);font-weight:600}
-    .bio{margin-top:18px;color:var(--muted);line-height:1.5}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);
-      text-decoration:none;font-weight:700;min-width:220px;justify-content:flex-start
-    }
-    .btn .ico{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center}
-    .btn:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
-    .meta{display:flex;gap:12px;margin-top:18px;color:var(--muted);align-items:center;flex-wrap:wrap}
-    .meta .item{display:flex;align-items:center;gap:8px}
-    .right{
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:6px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-      min-height:220px;
-    }
-    .qr{width:210px;height:210px;padding:8px;background:var(--glass);border-radius:12px;display:flex;align-items:center;justify-content:center}
-    .qr img{width:100%;height:100%;object-fit:contain;display:block;border-radius:8px}
-    .qr-label{color:var(--muted);font-size:13px;text-align:center}
-    footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
-    @media (max-width:880px){
-      .card{grid-template-columns:1fr;max-width:740px;padding:26px}
-      .logo{width:110px;height:110px}
-      .right{order:2;margin-top:6px}
-      .left{order:1}
-      .btn{min-width:100%;justify-content:center}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lone Wolf — Contacts (Directory)</title>
+<meta name="description" content="Lone Wolf Contacts directory — create, share, download contact cards" />
+<style>
+  :root{
+    --bg:#040405; --card:#0d0d0f; --muted:#97a0a6; --accent:#fff;
+    --glass: rgba(255,255,255,0.03); --accent-2: rgba(255,255,255,0.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system,"Segoe UI",Roboto,Arial;color:var(--accent);
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.02), transparent),
+                linear-gradient(180deg,var(--bg),#000);-webkit-font-smoothing:antialiased}
+  header{display:flex;align-items:center;gap:14px;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.02)}
+  header .brand{display:flex;align-items:center;gap:12px}
+  .brand img{width:46px;height:46px;object-fit:contain;border-radius:10px;background:var(--glass);padding:6px}
+  header h1{font-size:16px;margin:0}
+  .wrap{max-width:1100px;margin:28px auto;padding:0 18px}
+  .grid{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
+  .main{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:18px;border-radius:12px;border:1px solid var(--accent-2)}
+  .right{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:18px;border-radius:12px;border:1px solid var(--accent-2)}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);text-decoration:none;font-weight:700;cursor:pointer}
+  .btn.small{padding:8px 10px;font-size:14px}
+  .search{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--accent);margin-bottom:12px}
+  .list{display:flex;flex-direction:column;gap:12px}
+  .card{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+  .card .thumb{width:64px;height:64px;border-radius:10px;overflow:hidden;background:var(--glass);display:flex;align-items:center;justify-content:center}
+  .card .thumb img{width:54px;height:54px;object-fit:contain}
+  .card .meta{flex:1}
+  .card .meta h3{margin:0;font-size:15px}
+  .card .meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+  .card .actions{display:flex;gap:8px}
+  .qr-small{width:56px;height:56px;border-radius:8px;overflow:hidden;background:var(--glass);display:flex;align-items:center;justify-content:center}
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:60}
+  .modal.open{display:flex}
+  .modal .panel{width:100%;max-width:760px;background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+  label{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
+  input[type="text"], input[type="email"], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--accent)}
+  textarea{min-height:80px}
+  .form-row{display:flex;gap:8px;flex-wrap:wrap}
+  .muted{color:var(--muted);font-size:13px}
+  footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}.right{order:2}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <main class="card" role="main" aria-labelledby="profile-name">
-      <section class="left">
-        <div class="logo-wrap">
-          <div class="logo" aria-hidden="true">
-            <!-- Make sure logo.png is in repo root and spelled exactly like this -->
-            <img src="logo.png" alt="Lone Wolf logo">
-          </div>
-          <div>
-            <h1 id="profile-name">Lone Wolf Contacts</h1>
-            <div class="subtitle">Business Contacts — Enugu, Nigeria</div>
-            <div style="margin-top:8px;color:var(--muted);font-size:13px">Direct lines & social links</div>
-          </div>
+<header>
+  <div class="brand" style="margin-left:18px">
+    <img src="logo.png" alt="logo">
+    <div>
+      <h1>Lone Wolf Contacts</h1>
+      <div style="font-size:12px;color:var(--muted)">Directory — create individual pages & share</div>
+    </div>
+  </div>
+  <div style="flex:1"></div>
+  <div style="margin-right:18px">
+    <button class="btn" id="open-admin">Admin</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="main">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div>
+          <div style="font-size:18px;font-weight:700">Contacts</div>
+          <div class="muted" id="count">0 contacts</div>
         </div>
-
-        <p class="bio">
-          Hello — I’m Sinclair Aneke. Use any button below to call, message, or follow. The QR code on the right opens this page for quick sharing.
-        </p>
-
-        <div class="actions" aria-label="Contact actions">
-          <a class="btn" href="tel:+23480127465921" aria-label="Call phone"><span class="ico">📞</span><span>Call +234 801 274 65921</span></a>
-
-          <a class="btn" href="mailto:anekesinclair@gmail.com" aria-label="Send email"><span class="ico">✉</span><span>anekesinclair@gmail.com</span></a>
-
-          <!-- WhatsApp: use wa.me with country code and no leading zero -->
-          <a class="btn" href="https://wa.me/2349039228575" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <span class="ico">🟢</span><span>Message on WhatsApp</span>
-          </a>
-
-          <a class="btn" href="https://instagram.com/lonewolf" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><span class="ico">📸</span><span>@lonewolf</span></a>
-
-          <a class="btn" href="https://x.com/sszhahz" target="_blank" rel="noopener noreferrer" aria-label="X"><span class="ico">🐦</span><span>@sszhahz</span></a>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input id="search" class="search" placeholder="Search by name, phone, handle..." />
         </div>
+      </div>
 
-        <div class="meta" role="contentinfo">
-          <div class="item">📍 Enugu, Nigeria</div>
-          <div class="item">•</div>
-          <div class="item">Built with care — Lone Wolf Contacts</div>
-        </div>
+      <div class="list" id="contact-list">
+        <!-- contact cards inserted here -->
+      </div>
+    </div>
 
-        <footer>
-          © <span id="year"></span> Lone Wolf — <a href="mailto:anekesinclair@gmail.com" style="color:inherit;opacity:0.85">anekesinclair@gmail.com</a>
-        </footer>
-      </section>
-
-      <aside class="right" aria-label="QR code and quick share">
-        <div class="qr" aria-hidden="false">
-          <!-- QR code image points to your site URL. The external QR API will generate an image dynamically. -->
-          <img id="qrimg" alt="QR code linking to Lone Wolf Contacts">
-        </div>
-
-        <div class="qr-label">Scan to open this page</div>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-          <a class="btn" href="https://lonewolfcontacts.github.io/contact-websi/" target="_blank" rel="noopener noreferrer" style="min-width:140px;justify-content:center">
-            🔗 Open site
-          </a>
-          <a class="btn" id="download-png" href="#" download="lonewolf-qr.png" style="min-width:140px;justify-content:center">⬇ Download QR</a>
-        </div>
-      </aside>
-    </main>
+    <aside class="right">
+      <div style="font-weight:700;margin-bottom:8px">Quick actions</div>
+      <div style="display:flex;gap:8px;flex-direction:column">
+        <button class="btn" id="new-contact">+ Create new contact</button>
+        <button class="btn" id="export-all">⬇ Download all contacts (JSON)</button>
+        <button class="btn" id="import-json">⬆ Import JSON</button>
+        <div class="muted" style="margin-top:8px">Each contact has its own shareable URL and QR code. You can also download a standalone HTML file for upload to GitHub Pages.</div>
+      </div>
+      <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)" />
+      <div style="margin-top:6px">
+        <div style="font-weight:700;margin-bottom:6px">Example: Create & share</div>
+        <div class="muted">Create a contact → click "Share" → copy the link or download HTML → upload to repo if you want permanent separate page.</div>
+      </div>
+    </aside>
   </div>
 
-  <script>
-    // small niceties
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <footer>
+    © <span id="year"></span> Lone Wolf — manage contacts locally or export for GitHub Pages
+  </footer>
+</div>
 
-    // Build QR code image URL (points to your published site)
-    (function(){
-      const pageUrl = 'https://lonewolfcontacts.github.io/contact-websi/';
-      // Use a public QR generator (QRServer) to create PNG of the page URL.
-      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(pageUrl);
-      const img = document.getElementById('qrimg');
-      img.src = qrUrl;
+<!-- MODAL: create/edit contact -->
+<div class="modal" id="modal">
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h2 id="modal-title">Create contact</h2>
 
-      // Set download link to the same image
-      const dl = document.getElementById('download-png');
-      dl.href = qrUrl;
+    <div style="margin-top:8px;color:var(--muted)">Fill the details — you can upload a photo/logo via URL or later replace when exporting files.</div>
 
-      // Accessibility alt
-      img.alt = 'QR code linking to ' + pageUrl;
-    })();
-  </script>
+    <label>Name</label>
+    <input id="c-name" type="text" placeholder="Full name" />
+
+    <div class="form-row">
+      <div style="flex:1">
+        <label>Phone (with country code)</label>
+        <input id="c-phone" type="text" placeholder="+234..." />
+      </div>
+      <div style="flex:1">
+        <label>WhatsApp</label>
+        <input id="c-wa" type="text" placeholder="same or +234..." />
+      </div>
+    </div>
+
+    <label>Email</label>
+    <input id="c-email" type="email" placeholder="name@example.com" />
+
+    <div class="form-row">
+      <div style="flex:1">
+        <label>Instagram</label>
+        <input id="c-ig" type="text" placeholder="@handle" />
+      </div>
+      <div style="flex:1">
+        <label>Twitter / X</label>
+        <input id="c-x" type="text" placeholder="@handle" />
+      </div>
+    </div>
+
+    <label>Location (city, country)</label>
+    <input id="c-loc" type="text" placeholder="Enugu, Nigeria" />
+
+    <label>Profile Image URL (optional)</label>
+    <input id="c-img" type="text" placeholder="https://..." />
+
+    <label>Short bio (optional)</label>
+    <textarea id="c-bio" placeholder="Short description"></textarea>
+
+    <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+      <button class="btn small" id="cancel">Cancel</button>
+      <button class="btn small" id="save-contact">Save contact</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: share / view single contact -->
+<div class="modal" id="modal-view">
+  <div class="panel" role="dialog" aria-modal="true" id="view-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 id="view-name">Contact</h3>
+      <div style="display:flex;gap:8px">
+        <button class="btn small" id="download-html">⬇ Download HTML</button>
+        <button class="btn small" id="close-view">Close</button>
+      </div>
+    </div>
+
+    <div style="margin-top:10px;display:flex;gap:18px;align-items:flex-start">
+      <div style="flex:1">
+        <div id="view-bio" class="muted"></div>
+        <div style="margin-top:12px" id="view-links"></div>
+      </div>
+      <div style="width:220px;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="width:200px;height:200px;background:var(--glass);display:flex;align-items:center;justify-content:center;border-radius:12px;overflow:hidden">
+          <img id="view-img" src="" alt="" style="width:100%;height:100%;object-fit:contain">
+        </div>
+        <div id="view-qr" style="width:170px;height:170px;"></div>
+        <div class="muted" id="view-url" style="word-break:break-all;text-align:center;font-size:13px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // small helpers
+  const STORAGE_KEY = 'lw_contacts_v1';
+  function uid(){return Math.random().toString(36).slice(2,9)}
+  function saveAll(arr){localStorage.setItem(STORAGE_KEY, JSON.stringify(arr))}
+  function loadAll(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')}catch(e){return []}}
+
+  // load and render list
+  let contacts = loadAll();
+  const listEl = document.getElementById('contact-list');
+  const countEl = document.getElementById('count');
+  const searchEl = document.getElementById('search');
+
+  function updateCount(){countEl.textContent = contacts.length + ' contact' + (contacts.length===1?'':'s')}
+  function renderList(filter=''){
+    listEl.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    const shown = contacts.filter(c=>{
+      if(!q) return true;
+      return (c.name||'').toLowerCase().includes(q) || (c.phone||'').toLowerCase().includes(q) ||
+             (c.ig||'').toLowerCase().includes(q) || (c.x||'').toLowerCase().includes(q)
+    });
+    if(shown.length===0){
+      listEl.innerHTML = '<div class="muted">No contacts yet — click "Create new contact" to add.</div>';
+    } else {
+      shown.forEach(c=>{
+        const card = document.createElement('div'); card.className='card';
+        const thumb = document.createElement('div'); thumb.className='thumb';
+        const img = document.createElement('img'); img.src = c.img || 'logo.png'; img.alt = c.name || 'avatar';
+        thumb.appendChild(img);
+        const meta = document.createElement('div'); meta.className='meta';
+        meta.innerHTML = '<h3>'+escapeHtml(c.name||'Unnamed')+'</h3><p>'+escapeHtml(c.phone||c.email||'')+'</p>';
+        const actions = document.createElement('div'); actions.className='actions';
+        // View button
+        const viewBtn = document.createElement('button'); viewBtn.className='btn small'; viewBtn.textContent='View';
+        viewBtn.onclick = ()=> openContactView(c);
+        // Share (copy link)
+        const shareBtn = document.createElement('button'); shareBtn.className='btn small'; shareBtn.textContent='Share';
+        shareBtn.onclick = ()=> {
+          const link = buildShareLinkFromContact(c);
+          navigator.clipboard.writeText(link).then(()=> alert('Link copied to clipboard'));
+        };
+        // Download HTML
+        const dlBtn = document.createElement('button'); dlBtn.className='btn small'; dlBtn.textContent='Download HTML';
+        dlBtn.onclick = ()=> downloadContactHtml(c);
+        // Delete
+        const delBtn = document.createElement('button'); delBtn.className='btn small'; delBtn.textContent='Delete';
+        delBtn.onclick = ()=> {
+          if(confirm('Delete contact "'+ (c.name || 'Unnamed') +'"?')) {
+            contacts = contacts.filter(x=>x.id!==c.id); saveAll(contacts); renderList(searchEl.value); updateCount();
+          }
+        };
+        // Edit
+        const editBtn = document.createElement('button'); editBtn.className='btn small'; editBtn.textContent='Edit';
+        editBtn.onclick = ()=> openModalForEdit(c);
+
+        actions.appendChild(viewBtn);
+        actions.appendChild(shareBtn);
+        actions.appendChild(dlBtn);
+        actions.appendChild(editBtn);
+        actions.appendChild(delBtn);
+
+        const rightSide = document.createElement('div'); rightSide.style.display='flex'; rightSide.style.gap='12px';
+        rightSide.appendChild(actions);
+
+        card.appendChild(thumb);
+        card.appendChild(meta);
+        card.appendChild(rightSide);
+        listEl.appendChild(card);
+      });
+    }
+  }
+
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])) }
+
+  // build share link: include contact object as base64 encoded JSON in ?c=
+  function buildShareLinkFromContact(c){
+    const base = location.origin + location.pathname;
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(c))));
+    return base + '?c=' + encoded;
+  }
+
+  function openContactView(c){
+    const mv = document.getElementById('modal-view'); mv.classList.add('open');
+    document.getElementById('view-name').textContent = c.name || 'Unnamed';
+    document.getElementById('view-bio').textContent = c.bio || '';
+    document.getElementById('view-img').src = c.img || 'logo.png';
+    // links
+    const links = [];
+    if(c.phone) links.push('<div><strong>Phone:</strong> <a href="tel:'+encodeURIComponent(c.phone)+'">'+escapeHtml(c.phone)+'</a></div>');
+    if(c.email) links.push('<div><strong>Email:</strong> <a href="mailto:'+encodeURIComponent(c.email)+'">'+escapeHtml(c.email)+'</a></div>');
+    if(c.wa) {
+      const waNum = normalizeWhatsapp(c.wa || c.phone || '');
+      links.push('<div><strong>WhatsApp:</strong> <a href="https://wa.me/'+waNum+'" target="_blank" rel="noopener noreferrer">Chat</a></div>');
+    }
+    if(c.ig) links.push('<div><strong>Instagram:</strong> <a href="https://instagram.com/'+encodeURIComponent((c.ig||'').replace('@',''))+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(c.ig)+'</a></div>');
+    if(c.x) links.push('<div><strong>X:</strong> <a href="https://x.com/'+encodeURIComponent((c.x||'').replace('@',''))+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(c.x)+'</a></div>');
+    if(c.loc) links.push('<div><strong>Location:</strong> '+escapeHtml(c.loc)+'</div>');
+    document.getElementById('view-links').innerHTML = links.join('');
+    // shareable link & QR
+    const link = buildShareLinkFromContact(c);
+    document.getElementById('view-url').textContent = link;
+    const qrImg = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(link);
+    document.getElementById('view-qr').innerHTML = '<img src="'+qrImg+'" alt="QR" style="width:100%;height:100%;object-fit:contain;border-radius:8px" />';
+    // download html button
+    document.getElementById('download-html').onclick = ()=> downloadContactHtml(c);
+  }
+
+  function normalizeWhatsapp(raw){
+    if(!raw) return '';
+    raw = raw.replace(/\s+/g,'').replace(/\+/g,'');
+    // remove leading zero after country code if user wrote like 090...
+    if(raw.startsWith('0')) raw = raw.slice(1);
+    return raw;
+  }
+
+  // Download a standalone HTML file for a contact
+  function downloadContactHtml(c){
+    const html = buildStandaloneHtml(c);
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url;
+    const safeName = (c.name || 'contact').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    a.download = (safeName || 'contact') + '.html';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }
+
+  function buildStandaloneHtml(c){
+    // This creates a small single-file page for this contact that includes the logo file from the same folder (logo.png).
+    const shareLink = buildShareLinkFromContact(c);
+    const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' + encodeURIComponent(shareLink);
+    const img = c.img ? c.img : 'logo.png';
+    const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(c.name||'Contact')}</title>
+    <style>body{font-family:Inter,system-ui,Arial;background:#040405;color:#fff;padding:30px} .card{max-width:680px;margin:0 auto;background:#0f0f11;padding:20px;border-radius:12px} img{max-width:100%}</style></head><body>
+    <div class="card"><img src="${img}" alt="logo" style="width:120px;height:120px;object-fit:contain"><h1>${escapeHtml(c.name||'')}</h1>
+    <p>${escapeHtml(c.bio||'')}</p>
+    <div><strong>Phone:</strong> ${escapeHtml(c.phone||'')}</div>
+    <div><strong>Email:</strong> ${escapeHtml(c.email||'')}</div>
+    <div style="margin-top:14px"><img src="${qrUrl}" alt="qr" style="width:220px;height:220px"></div>
+    <div style="margin-top:18px;font-size:13px;color:#aaa">Open share URL: <a href="${shareLink}">${shareLink}</a></div>
+    </div></body></html>`;
+    return html;
+  }
+
+  // Admin modal logic
+  const modal = document.getElementById('modal');
+  const modalView = document.getElementById('modal-view');
+  const openAdminBtn = document.getElementById('open-admin');
+  const newContactBtn = document.getElementById('new-contact');
+  const saveContactBtn = document.getElementById('save-contact');
+  const cancelBtn = document.getElementById('cancel');
+
+  let editingId = null;
+
+  function openModalForNew(){
+    editingId = null;
+    document.getElementById('modal-title').textContent = 'Create contact';
+    document.getElementById('c-name').value=''; document.getElementById('c-phone').value=''; document.getElementById('c-email').value='';
+    document.getElementById('c-wa').value=''; document.getElementById('c-ig').value=''; document.getElementById('c-x').value='';
+    document.getElementById('c-loc').value=''; document.getElementById('c-img').value=''; document.getElementById('c-bio').value='';
+    modal.classList.add('open');
+  }
+
+  function openModalForEdit(c){
+    editingId = c.id;
+    document.getElementById('modal-title').textContent = 'Edit contact';
+    document.getElementById('c-name').value=c.name||''; document.getElementById('c-phone').value=c.phone||''; document.getElementById('c-email').value=c.email||'';
+    document.getElementById('c-wa').value=c.wa||''; document.getElementById('c-ig').value=c.ig||''; document.getElementById('c-x').value=c.x||'';
+    document.getElementById('c-loc').value=c.loc||''; document.getElementById('c-img').value=c.img||''; document.getElementById('c-bio').value=c.bio||'';
+    modal.classList.add('open');
+  }
+
+  saveContactBtn.onclick = ()=>{
+    const name = document.getElementById('c-name').value.trim();
+    if(!name){alert('Please add a name'); return;}
+    const obj = {
+      id: editingId || uid(),
+      name,
+      phone: document.getElementById('c-phone').value.trim(),
+      wa: document.getElementById('c-wa').value.trim(),
+      email: document.getElementById('c-email').value.trim(),
+      ig: document.getElementById('c-ig').value.trim(),
+      x: document.getElementById('c-x').value.trim(),
+      loc: document.getElementById('c-loc').value.trim(),
+      img: document.getElementById('c-img').value.trim(),
+      bio: document.getElementById('c-bio').value.trim()
+    };
+    if(editingId){
+      contacts = contacts.map(c=> c.id===editingId ? obj : c);
+    } else {
+      contacts.unshift(obj); // newest first
+    }
+    saveAll(contacts); renderList(searchEl.value); updateCount(); modal.classList.remove('open');
+  };
+  cancelBtn.onclick = ()=> modal.classList.remove('open');
+
+  // open admin requires a simple password prompt (client-side only)
+  openAdminBtn.onclick = ()=>{
+    const pwd = prompt('Admin password:');
+    // default password is admin (change in code if you want)
+    if(pwd === 'admin'){
+      openModalForNew();
+    } else if(pwd === null) {
+      // cancelled
+    } else {
+      alert('Wrong password');
+    }
+  };
+
+  newContactBtn.onclick = ()=> {
+    const pwd = prompt('Admin password:');
+    if(pwd === 'admin') openModalForNew();
+    else if(pwd!==null) alert('Wrong password');
+  };
+
+  // Import/export
+  document.getElementById('export-all').onclick = ()=>{
+    const data = JSON.stringify(contacts, null, 2);
+    const blob = new Blob([data], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='lonewolf-contacts.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  };
+
+  document.getElementById('import-json').onclick = ()=>{
+    const text = prompt('Paste contacts JSON here (overwrites current). Cancel to abort.');
+    if(!text) return;
+    try{
+      const arr = JSON.parse(text);
+      if(Array.isArray(arr)){
+        contacts = arr; saveAll(contacts); renderList(); updateCount(); alert('Imported ' + arr.length + ' contacts');
+      } else alert('JSON must be an array');
+    } catch(e){ alert('Invalid JSON') }
+  };
+
+  // view modal close
+  document.getElementById('close-view').onclick = ()=> modalView.classList.remove('open');
+
+  // search
+  searchEl.oninput = ()=> renderList(searchEl.value);
+
+  // initial render
+  updateCount(); renderList();
+
+  // support querystring ?c=base64 for shareable pages or ?id=<localid>
+  (function(){
+    const params = new URLSearchParams(location.search);
+    if(params.has('c')){
+      try{
+        const decoded = decodeURIComponent(escape(atob(params.get('c'))));
+        const obj = JSON.parse(decoded);
+        // show direct view
+        openContactView(obj);
+        modalView.classList.add('open');
+      }catch(e){
+        console.error('invalid contact data', e);
+      }
+    } else if(params.has('id')){
+      const id = params.get('id');
+      const found = contacts.find(x=>x.id===id);
+      if(found) { openContactView(found); modalView.classList.add('open'); }
+    }
+  })();
+
+  // helper: download all contact pages as standalone HTML files zipped (optional)
+  // (left out zip implementation to keep single-file simple; use export JSON + server-side if needed)
+
+  // add keyboard ESC to close modals
+  window.addEventListener('keydown', (e)=> {
+    if(e.key === 'Escape'){ modal.classList.remove('open'); modalView.classList.remove('open'); }
+  });
+
+  // utility: encode/decode base64 safe functions
+  function btoaUtf8(str){ return btoa(unescape(encodeURIComponent(str))) }
+  function atobUtf8(str){ return decodeURIComponent(escape(atob(str))) }
+
+  // helpers used elsewhere
+  function buildShareLinkFromContact(c){
+    const base = location.origin + location.pathname;
+    const encoded = btoaUtf8(JSON.stringify(c));
+    return base + '?c=' + encoded;
+  }
+
+  // ensure view modal close when clicking outside
+  document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target===document.getElementById('modal')) modal.classList.remove('open'); });
+  document.getElementById('modal-view').addEventListener('click', (e)=>{ if(e.target===document.getElementById('modal-view')) modalView.classList.remove('open'); });
+
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
